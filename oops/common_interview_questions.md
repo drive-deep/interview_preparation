@@ -249,8 +249,105 @@ Sure! Below are some common Object-Oriented Programming (OOP) interview question
     - **Composition**: A "contains-a" relationship where the child cannot exist independently of the parent (e.g., a house and its rooms).
 
 ### 22. **What is the diamond problem in multiple inheritance, and how does Python's MRO (Method Resolution Order) solve it?**
-    - The diamond problem occurs when a class inherits from two classes that have a common ancestor. Python resolves this using the **Method Resolution Order (MRO)**, which ensures that methods are called in a specific order, preventing ambiguity.
+    ### **The Diamond Problem in Multiple Inheritance**
 
+The **diamond problem** is a specific issue that arises in languages that support multiple inheritance when a class inherits from two or more classes that have a common base class. This leads to an ambiguity because there are multiple paths to reach the common base class, creating confusion about which version of a method to call from the base class.
+
+#### **Explanation of the Diamond Problem:**
+
+Consider the following inheritance structure:
+
+```
+      A
+     / \
+    B   C
+     \ /
+      D
+```
+
+- Class `B` and class `C` both inherit from class `A`.
+- Class `D` inherits from both `B` and `C`.
+
+If class `A` has a method (e.g., `method_a`), and `D` tries to call this method, it’s unclear whether `D` should use the `method_a` from `B` or from `C`. This confusion is known as the **diamond problem**.
+
+### **How Python Solves the Diamond Problem Using MRO (Method Resolution Order)**
+
+Python uses the **C3 linearization algorithm** (also known as C3 superclass linearization) to determine the **Method Resolution Order (MRO)**, which ensures a consistent method resolution path in multiple inheritance scenarios. The MRO determines the order in which Python looks for a method when it's called on an object, resolving the ambiguity introduced by the diamond problem.
+
+#### **MRO Rules:**
+
+- The child class is always prioritized before its parent classes.
+- Parent classes are ordered left to right, as defined in the inheritance declaration.
+- If a class is inherited multiple times via different paths, Python ensures that the class appears only once in the MRO (after the child and other parents are resolved).
+- Python linearizes the inheritance hierarchy by looking at the immediate parents first and then applying the rules recursively.
+
+#### **Example of the Diamond Problem in Python:**
+
+```python
+class A:
+    def method(self):
+        print("Method from class A")
+
+class B(A):
+    def method(self):
+        print("Method from class B")
+
+class C(A):
+    def method(self):
+        print("Method from class C")
+
+class D(B, C):
+    pass
+
+d = D()
+d.method()  # Which method is called?
+```
+
+In the above example:
+- Both `B` and `C` override the `method` from `A`.
+- When `D` calls `method()`, Python needs to determine whether to use `B.method` or `C.method`.
+
+### **MRO in Action:**
+
+Python determines the method resolution order using the `__mro__` attribute or the `mro()` method. In the above case, you can check the MRO of class `D` like this:
+
+```python
+print(D.__mro__)  # OR
+print(D.mro())
+```
+
+Output:
+
+```
+(<class '__main__.D'>, <class '__main__.B'>, <class '__main__.C'>, <class '__main__.A'>, <class 'object'>)
+```
+
+### **Explanation of the MRO in This Case:**
+
+1. **`D`**: Python starts with the class `D`, the class from which the method is being called.
+2. **`B`**: Since `B` is the first parent of `D` in the inheritance declaration (`class D(B, C)`), Python looks for the `method` in `B`.
+3. **`C`**: If the method was not found in `B`, Python would then check `C`.
+4. **`A`**: If the method was not found in `B` or `C`, Python would check the common base class `A`.
+
+This way, Python ensures that there's no ambiguity, and the method is consistently resolved by following the defined order.
+
+#### **Output for `d.method()` in this case:**
+```
+Method from class B
+```
+
+Since `B` is encountered before `C` in the MRO, `D` will use the `method` from `B`.
+
+### **How MRO Solves the Diamond Problem:**
+
+The MRO ensures that the inheritance graph is **linearized**. It avoids multiple resolutions of the same base class (in this case, `A`), which could happen through different paths (from `B` and `C`), and determines a clear, unambiguous order for method resolution.
+
+Python’s MRO guarantees:
+- No class is visited more than once in the inheritance hierarchy.
+- The order of method resolution is deterministic and consistent.
+- The base class (`A` in this case) is resolved only once and at the appropriate point in the hierarchy.
+
+This resolves the ambiguity inherent in the diamond problem.
 ---
 
 ### Real-World OOP Scenarios
