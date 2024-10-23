@@ -193,6 +193,119 @@ Sure! Below are some common Object-Oriented Programming (OOP) interview question
    demo.display()           # Accessing private via a method
    ```
 
+### 9. **Explain the difference between a class and an object.**
+   - **Class**: A class is a blueprint or template for creating objects. It defines the properties (attributes) and behaviors (methods) that the objects created from it will have.
+   - **Object**: An object is an instance of a class. It is a real-world entity created using the class blueprint, with specific values assigned to the attributes defined in the class.
+
+### 10. **What is the difference between method overloading and method overriding?**
+   - **Method Overloading**: This occurs when multiple methods with the same name but different parameters exist in the same class. (Python does not natively support method overloading, but it can be mimicked using default or variable-length arguments.)
+   - **Method Overriding**: This occurs when a subclass provides a specific implementation of a method that is already defined in its superclass. The overridden method in the subclass has the same name, return type, and parameters as in the superclass.
+
+### 11. **What are the advantages of using OOP over procedural programming?**
+   - **Modularity**: Code is organized into objects, making it modular and easier to manage.
+   - **Reusability**: Through inheritance, code can be reused across different parts of a program.
+   - **Encapsulation**: Protects object data by restricting access to internal details.
+   - **Abstraction**: Complexities are hidden, and only essential features are exposed.
+   - **Polymorphism**: Allows the same method to behave differently based on the object it is acting on.
+
+### 12. **How does inheritance support code reusability?**
+   - Inheritance allows a class to inherit properties and behaviors (methods) from another class, reducing redundancy. The child class can extend or modify the inherited features without rewriting the existing code.
+
+### 13. **What is the difference between abstract classes and interfaces?**
+   - **Abstract Class**: A class that cannot be instantiated and may contain both abstract methods (without implementations) and concrete methods (with implementations). It serves as a base for subclasses.
+   - **Interface**: Defines a contract in which all methods must be implemented by the subclass. In languages like Python, interfaces can be implemented using abstract base classes.
+### 14. **What is the concept of multiple inheritance? How is it handled in languages like Python and Java?**
+   - **Multiple Inheritance**: This allows a class to inherit from more than one parent class.
+     - In **Python**, multiple inheritance is supported, and conflicts (like the "diamond problem") are resolved using the Method Resolution Order (MRO).
+     - In **Java**, multiple inheritance is not allowed for classes, but it can be achieved using interfaces.
+
+### 15. **What is the purpose of constructors in OOP?**
+   - A constructor is a special method that is automatically called when an object is instantiated. It is used to initialize the attributes of the object.
+
+### 16. **How does polymorphism enhance the flexibility of software design?**
+   - Polymorphism allows objects of different classes to be treated as objects of a common superclass. This makes code more flexible and extensible because different types of objects can be used interchangeably in the same context (e.g., a function can accept objects of any subclass of a base class).
+
+### 17. **What are static methods and how do they differ from instance methods?**
+   - **Static Method**: A method that belongs to the class rather than any particular object. It doesn’t access or modify instance-specific data. It’s declared using `@staticmethod` in Python.
+   - **Instance Method**: A method that operates on an instance of the class, using the `self` keyword to access or modify instance-specific data.
+
+### 18. **What is a `super` keyword in Python, and how does it support inheritance?**
+    - The `super` keyword in Python is used to call a method from the parent class inside a child class. It allows access to the superclass’s methods and attributes and supports the concept of inheritance.
+
+### 19. **How does encapsulation improve security in software design?**
+    - Encapsulation restricts access to an object's internal state by defining which methods and attributes can be accessed publicly and which should remain private. This protects the integrity of the data by preventing external modification in an unintended way.
+
+### 20. **What is the SOLID principle in OOP?**
+    - **SOLID** is an acronym for five design principles in OOP:
+      - **S**ingle Responsibility Principle: A class should have one, and only one, reason to change.
+      - **O**pen/Closed Principle: A class should be open for extension but closed for modification.
+      - **L**iskov Substitution Principle: Objects of a superclass should be replaceable with objects of a subclass without affecting the program’s behavior.
+      - **I**nterface Segregation Principle: Clients should not be forced to depend on methods they do not use.
+      - **D**ependency Inversion Principle: High-level modules should not depend on low-level modules; both should depend on abstractions.
+
+### 21. **What is the difference between association, aggregation, and composition?**
+    - **Association**: A general relationship between two objects (e.g., a student and a course).
+    - **Aggregation**: A "has-a" relationship where the child can exist independently of the parent (e.g., a library and its books).
+    - **Composition**: A "contains-a" relationship where the child cannot exist independently of the parent (e.g., a house and its rooms).
+
+### 22. **What is the diamond problem in multiple inheritance, and how does Python's MRO (Method Resolution Order) solve it?**
+    - The diamond problem occurs when a class inherits from two classes that have a common ancestor. Python resolves this using the **Method Resolution Order (MRO)**, which ensures that methods are called in a specific order, preventing ambiguity.
+
 ---
 
-These questions will give you a solid understanding of OOP concepts and help you confidently answer typical interview questions.
+### Real-World OOP Scenarios
+
+1. **Library Management System**:
+    - Classes: `Book`, `Member`, `BorrowHistory`, `Library`.
+    - Relationships: A `Member` can borrow multiple `Books`, and each borrowing event is recorded in `BorrowHistory`.
+
+2. **School System**:
+    - Classes: `Student`, `Teacher`, `Course`.
+    - Relationships: A `Student` enrolls in multiple `Courses`. A `Teacher` can teach multiple `Courses`.
+
+3. **E-commerce System**:
+    - Classes: `User`, `Product`, `Order`, `Payment`.
+    - Relationships: A `User` can place multiple `Orders`, each containing several `Products`. Payments are linked to `Orders`.
+
+4. **Restaurant Order Management**:
+    - Classes: `Order`, `MenuItem`, `Customer`, `Waiter`.
+    - Relationships: A `Customer` places an `Order` for `MenuItems`. A `Waiter` serves the `Order`.
+
+5. **Inventory Management System**:
+    - Classes: `Product`, `Warehouse`, `StockLevel`.
+    - Relationships: `Products` are stored in `Warehouses`, and each `Product` has an associated `StockLevel` in each `Warehouse`.
+
+6. **Parking Lot System**:
+    - Classes: `Vehicle`, `ParkingSpot`, `Car`, `Bike`, `Truck`.
+    - Relationships: `Vehicles` are parked in `ParkingSpots`, with different types of `Vehicles` taking up different sizes of `Spots`.
+
+---
+
+### Advanced OOP Questions
+
+1. **Dependency Injection**: Inject dependencies (objects) into a class instead of creating them within the class. This makes code more testable and decoupled.
+
+2. **Design Patterns**:
+    - **Singleton**: Ensures that a class has only one instance.
+    - **Factory**: Creates objects without specifying the exact class of the object.
+    - **Observer**: An object (subject) maintains a list of dependents (observers) and notifies them of changes.
+
+3. **Using Decorators for Logging**: You can use Python decorators to wrap methods with additional functionality like logging or timing.
+
+4. **Metaclasses in Python**: Metaclasses define how classes behave. They are "classes of classes," allowing customization of class creation.
+
+5. **Duck Typing**: In Python, "If it looks like a duck and quacks like a duck, it's a duck." This means that objects are identified by their behavior (methods) rather than their type.
+
+6. **Plugin-based Architecture**: Use inheritance or interfaces to allow modules to be loaded dynamically at runtime (e.g., via `importlib`).
+
+7. **Managing User Sessions in Distributed Systems**: Use OOP to abstract session handling and distribute session data using databases or in-memory caches (e.g., Redis).
+
+8. **Law of Demeter**: A principle that encourages minimizing the number of classes that a method interacts with. It reduces coupling.
+
+9. **Deep vs. Shallow Copy**: A shallow copy copies the reference to the objects, whereas a deep copy creates a new object with copies of the values of the original object's data.
+
+10. **Garbage Collection in Python**: Python’s garbage collector can handle cyclic references through its reference counting mechanism and `gc` module for detecting cycles.
+
+---
+
+This provides a comprehensive set of answers for a deep understanding of OOP concepts, covering both foundational knowledge and practical applications.
