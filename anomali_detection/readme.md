@@ -1,6 +1,3 @@
-Here's a professional and visually appealing README template for your project on anomaly detection in distributed systems:
-
----
 
 # 📈 Anomaly Detection in Distributed Systems
 
