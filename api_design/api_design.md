@@ -89,6 +89,10 @@ Creating effective APIs is essential for ensuring seamless integration, usabilit
 ### 9. Idempotency
 
 - **Idempotent Methods**: Ensure `PUT` and `DELETE` requests are idempotent, meaning multiple requests have the same effect as a single one.
+- Idempotent ≠ Identical Results. Idempotency for GET refers to not altering server data, not necessarily returning identical results with each call.
+- GET requests are idempotent because calling them multiple times does not change the server’s data, even if the results vary based on data added or modified by other requests.
+- PUT and DELETE can change server data, but once applied, repeating them has no further effect. The server’s state stabilizes to a consistent result, regardless of how many identical requests are made
+- POST requests are not idempotent by design.Making the same POST request multiple times may create multiple resources or trigger repeated operations, so repeating a POST request can alter the state of the server.
 
 ### 10. Performance Optimization
 
