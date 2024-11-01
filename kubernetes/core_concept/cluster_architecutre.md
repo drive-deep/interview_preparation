@@ -1,5 +1,3 @@
-
-
 # Kubernetes Cluster Architecture 🏗️
 
 A Kubernetes cluster is made up of a set of components that work together to run, manage, and scale containerized applications. Understanding this architecture is key to managing and troubleshooting Kubernetes effectively. Here’s an overview of the architecture and a README that explains each component.
