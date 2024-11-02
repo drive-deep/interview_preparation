@@ -12,6 +12,7 @@ DNS (Domain Name System) is the protocol responsible for translating human-reada
 5. [Example DNS Flow](#example-dns-flow)
 6. [Configuring DNS and Subdomains](#configuring-dns-and-subdomains)
 7. [Common Providers and Tools](#common-providers-and-tools)
+8. [Setting Up DNS and Subdomains on GoDaddy](#Setting-Up-DNS-and-Subdomains-on-GoDaddy)
 
 ---
 
@@ -146,7 +147,7 @@ Popular DNS providers include:
 
 Run `nslookup example.com` to check the DNS resolution path and retrieve the IP address.
 
-###8. Setting Up DNS and Subdomains on GoDaddy
+ ### 8. Setting Up DNS and Subdomains on GoDaddy
 To configure DNS records and set up subdomains on GoDaddy, follow these steps:
 
 Log In to your GoDaddy account.
