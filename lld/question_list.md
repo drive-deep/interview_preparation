@@ -1,0 +1,145 @@
+Convert Postfix expression to Infix
+All anagrams of a given string
+Rain water trapping problem
+Print right view of binary tree
+Clone a linked list with Next and Random pointer
+Diameter of a binary tree
+Longest Inclusive Range Pair
+Zigzag Traversal of a binary tree
+Given N lockers and the location of a person, determine the nearest locker where the person can drop a package (location is represented by coordinates (x, y)).
+Modified Tree, Trie (video explanation)
+Weather data problem - Find min and max temperatures among 5 stations over time
+Form string B from string A by reordering/ignoring characters + min steps to reach
+Lowest Common Ancestor of a Binary Tree III (LeetCode)
+Track user visits API + return first user who visited only once + return first N unique users
+Calculate K-most popular items in a stream (event_id, item_id, timestamp)
+Employee compensation by manager ID using a file with salary data
+Word search problem
+LFU cache implementation
+Concatenated words problem (LeetCode)
+Unix file search API design problem (OOD)
+Buy and Sell Stocks problem
+Meeting Room problems:
+Find min number of rooms required
+Maximum number of rooms booked at a time
+Data Stream problem - find repeated frames in a video within k range
+Course Schedule II (LeetCode)
+Word Ladder and Word Ladder II problems
+Gas Station problem
+Path Sum II problem
+Reverse Linked List II
+Prefix sum problem
+Row with maximum ones (LeetCode)
+Maximum sum without adjacent elements (House Robber)
+Largest binary tree in a BST problem
+Sliding Window Maximum problem (LeetCode)
+Substring problem related to finding pairs
+Deleting a node from a BST
+Seats allocation using Greedy approach
+Compare Version Numbers (LeetCode)
+Merge n sorted lists
+Number of ways to group n people in k groups in increasing order
+Min Stack implementation
+Max path sum in a graph
+LRU cache implementation
+Asteroid Collision problem (LeetCode)
+Alien Dictionary problem
+Basic LPS (Longest Palindromic Subsequence)
+You are given two positive integers startPos and endPos.
+Initially, you are standing at position startPos on an infinite number line.
+With one step, you can move either one position to the left, or one position to the right.
+Given a positive integer k, return the number of different ways to reach the position endPos starting from startPos,
+such that you perform exactly k steps.
+Since the answer may be very large, return it modulo 10^9 + 7.
+Two ways are considered different if the order of the steps made is not exactly the same.
+Note that the number line includes negative integers
+You are given a network of n devices, labeled from 1 to n.
+You are also given times, a list of travel times as directed edges times[i] = (ui, vi, wi),
+where ui is the source device, vi is the target device, and wi is the time it takes for a signal to travel from source to target.
+We will send a signal from a device k. Return the minimum time it takes for all the n devices to receive the signal.
+If it is impossible for all the n devices to receive the signal, return -1.
+
+
+Given an array representing delivery centers location, and a distance d. Calculate total suitable location in the number line. A location is suitable if it is possible to bring all products to that point by traveling a distance of no more than d.
+Example: centers = [-2,1,0], d = 8
+Answer: 3 (because the only suitable locations are {-1, 0, 1} ).
+Explanation: Location 1 is a suitable one because total distance traveled to bring all products to location 1 is 2*|1-(-2)|+2*|1-1|+2*|1-0| = 8 which is <=d.
+
+
+LP
+
+
+Ownership, Learn and Be Curious, Deliver Results
+LP1: Tell me about a time when you had to learn a completely new skillset to accomplish current deliverables.
+LP2: Tell me about a time when you faced a roadblock. How did you approach it? Was it solved or not? What did you learn?
+Additional: Tell me about a time when you took complete ownership of a project and ensured its success.
+Additional: Describe a situation where you saw an opportunity to improve a process and took action.
+Customer Obsession, Ownership
+LP1: Tell me about a time when you saw a peer struggling and how you helped them.
+LP2: Tell me about a time when you went above and beyond to serve a customer. Why did you do it? How did it impact them?
+Additional: Describe a situation where you prioritized customer feedback over other priorities and the result.
+Dive Deep, Invent and Simplify
+LP1: Tell me about a situation where you had to do an in-depth analysis to find a solution. How did you approach it? What was the impact?
+LP2: Tell me about a time when you did something innovative. What was it, and what was the outcome?
+Additional: Describe a time when you found a simple solution to a complex problem.
+Additional: Tell me about a time when you simplified an existing process without compromising on quality.
+Have Backbone, Earn Trust
+LP1: Tell me about a time when you took an unpopular stance, and your team members or manager disagreed. How did you navigate the situation?
+LP2: Tell me about a time when you had to communicate a difficult decision or change in timeline/direction. What was it, and how did you handle it? Could anything have been better?
+Additional: Share an experience when you had to defend your ideas despite significant opposition.
+Additional: Tell me about a time when you had to make a decision that was best for the team but initially met with resistance.
+Customer Impact, Deep Dive
+Q1: Tell me about a time when you created an impact in a customer's life. Follow-up: How did you measure the impact?
+Q2: Tell me about a time when you used customer feedback to improve a product. Follow-up: What specific feedback and changes were made?
+Additional: Describe a situation where a deep dive into data led to an unexpected discovery.
+Bias for Action, Deliver Results
+Q1: Tell me about a time when you worked under strict deadlines. How did you manage to complete the task? What steps did you take? What approach could you have done differently?
+Q2: Tell me about a time when you could not meet a deadline. How did you communicate this to leadership? What steps did you take, and what led to the delay?
+Additional: Share an experience when you had to act quickly without having all the necessary data.
+Additional: Tell me about a situation where you took a calculated risk. What was the outcome?
+Insist on the Highest Standards
+LP1: Tell me about a time when you saw a project that was not meeting your standards. How did you address it?
+Additional: Describe a situation where you helped raise the quality bar on a project or task.
+Are Right, A Lot
+Q1: Tell me about a time when you made a tough decision with limited data.
+Additional: Share a time when you made a decision that turned out to be incorrect. What did you learn from it?
+Think Big
+Q1: Describe a time when you proposed an ambitious idea. What was it, and how did you get buy-in?
+Additional: Tell me about a project where you had to look at the bigger picture and influence others to align with your vision.
+Frugality
+Q1: Give an example of a time when you had to do more with less.
+Additional: Describe a situation where you found a cost-effective solution without compromising on quality.
+Deliver Results
+LP1: Tell me about a challenging project and how you ensured it was delivered on time.
+Additional: Describe a situation where you prioritized competing tasks and still delivered successful results.
+This organized set covers various Amazon Leadership Principles with questions tailored for a tech interview, adding depth to your preparation for SDE2 interviews.
+LLD (Low-Level Design):
+
+
+Design an extensible solution to implement a search filter in OOD for a directory, matching files by size or name.
+Design a library to read a directory and perform operations such as filtering by file type and size constraints.
+Design a job scheduler.
+Design an inventory management system with queuing for incoming requests.
+Design a data structure similar to a HashMap.
+Create a class diagram for a standalone chess game and explain design decisions with pseudo code for piece movements.
+Create the low-level design of a download manager capable of handling multiple downloads.
+
+
+HLD (High-Level Design):
+Discuss what happens when a user clicks on amazon.com.
+Explain the architecture of BookMyShow.
+Rate limiter system design
+Explain the architecture of a project from your resume with class diagrams.
+Design a WhatsApp-like service, detailing load balancing, microservice communication, notification services, message queuing, database sharding, and maintaining message sequence with unreliable client timestamps.
+Design MakeMyTrip with detailed component design, database diagrams, and APIs used, discussing pros and cons of each component.
+Design a system to update a Mars Rover.
+Design a solution for Google Photos.
+Design a system that processes messages from one queue, classifies them, and outputs to another, handling 200,000 messages per second.
+Implement an unbounded set with expiration.
+Design a system for Amazon warehouses to prioritize truck deliveries.
+Design YouTube architecture.
+Design an e-commerce platform.
+Create a system that identifies word matches from a dictionary, such as prefix and suffix matches.
+Design an app store allowing authors to publish apps and users to download, ensuring scalability and global availability.
+Design a search engine.
+Design a file system to create files, add content, list files from directories, create directories, and search for files.
