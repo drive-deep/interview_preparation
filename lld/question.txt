@@ -144,3 +144,62 @@ Create a system that identifies word matches from a dictionary, such as prefix a
 Design an app store allowing authors to publish apps and users to download, ensuring scalability and global availability.
 Design a search engine.
 Design a file system to create files, add content, list files from directories, create directories, and search for files.
+
+
+
+
+Here's a **low-level design (LLD) list** of commonly asked interview questions, categorized for better clarity:  
+
+---
+
+### **1. Object-Oriented Design (OOD) Questions**  
+✅ **Design a Parking Lot**  
+✅ **Design a Library Management System**  
+✅ **Design a Hotel Booking System**  
+✅ **Design an Elevator System**  
+✅ **Design an ATM System**  
+✅ **Design a Coffee Machine**  
+✅ **Design a Car Rental System**  
+✅ **Design a Flight Reservation System**  
+✅ **Design an Online Food Ordering System (Zomato, Swiggy, Uber Eats)**  
+✅ **Design a Movie Ticket Booking System (BookMyShow, AMC, etc.)**  
+
+---
+
+### **2. Scalable System Design Questions**  
+✅ **Design a URL Shortener (like Bitly, TinyURL)**  
+✅ **Design a Rate Limiter for APIs**  
+✅ **Design an E-Commerce System (Amazon, Flipkart, Shopify, etc.)**  
+✅ **Design a Cab Booking System (Uber, Ola, Lyft, etc.)**  
+✅ **Design a Payment Gateway (Razorpay, Stripe, PayPal, etc.)**  
+✅ **Design a Social Media Platform (Twitter, Instagram, Facebook, etc.)**  
+✅ **Design a Messaging System (WhatsApp, Slack, Telegram, etc.)**  
+✅ **Design a Distributed Cache (like Redis, Memcached, etc.)**  
+
+---
+
+### **3. Real-Time Streaming & Data Processing Questions**  
+✅ **Design a Stock Market Ticker System (real-time stock price updates)**  
+✅ **Design a News Feed System (like Facebook/Twitter feeds)**  
+✅ **Design a Notification System (Push notifications, Email, SMS, etc.)**  
+✅ **Design a Logging & Monitoring System (like ELK Stack, Prometheus, etc.)**  
+✅ **Design a Ride Matching System for a Cab Service**  
+
+---
+
+### **4. Concurrency & Multi-Threading Questions**  
+✅ **Design a Thread Pool**  
+✅ **Design a Producer-Consumer Model**  
+✅ **Design a Token Bucket Rate Limiter**  
+✅ **Design a Read-Write Lock System**  
+
+---
+
+### **5. Databases & Storage Questions**  
+✅ **Design a Key-Value Store (similar to Redis)**  
+✅ **Design a Time-Series Database (like InfluxDB, Prometheus, etc.)**  
+✅ **Design a Search Engine (like Google Search, ElasticSearch, etc.)**  
+✅ **Design a File Storage System (like Google Drive, Dropbox, etc.)**  
+
+---
+
