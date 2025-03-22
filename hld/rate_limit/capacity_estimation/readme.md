@@ -92,4 +92,75 @@ Assuming:
 - **Auto-cleanup with TTL & ZREMRANGEBYSCORE**  
 - **Optimize with API Gateway caching**  
 
-Would you like a **detailed cost estimation** based on cloud provider pricing? 🚀
+The CPU and RAM requirements for a **Redis pod** depend on the **traffic load, dataset size, persistence settings, and number of Redis instances**. Let's estimate the required resources for **1 million requests per second (QPS)** using Redis **Sorted Sets** for rate limiting.
+
+---
+
+## **1️⃣ Redis Capacity Planning for 1M QPS**
+### **Key Assumptions:**
+- **Request Rate:** 1M requests per second  
+- **Redis Type:** Multi-threaded Redis (Redis 6+)  
+- **Persistence:** Disabled (for rate limiter use case)  
+- **Average Command Size:** 200 bytes per request  
+- **Replication Factor:** 2 (Primary + Replica)  
+- **CPU Per Core Performance:** 250K QPS per core (based on benchmarks)  
+
+---
+
+## **2️⃣ CPU Estimation**
+- **Single-threaded Redis handles ~200K QPS.**  
+- **Multi-threaded Redis (4 threads) handles ~800K-1M QPS per instance.**  
+- **1 Million QPS needs at least 4-6 cores per Redis instance.**  
+
+✅ **Recommended CPU per Redis pod:** **6 vCPUs**  
+✅ **If sharding is used:** Deploy **multiple Redis instances**, each handling 250K-500K QPS.
+
+---
+
+## **3️⃣ RAM Estimation**
+### **Memory Calculation for Rate Limiter (Sorted Set)**
+Each request is stored in a **Redis Sorted Set** with:  
+1. **User ID/IP Address (16 bytes avg)**  
+2. **Timestamp (8 bytes)**  
+3. **Metadata (~16 bytes per entry)**  
+4. **Redis Overhead (~20 bytes per entry)**  
+   
+**Total memory per entry ≈ 60 bytes**  
+For **1 million requests per second**:  
+- **Memory per second** = **1M × 60B = 60MB**  
+- **For a 1-minute window (60M entries)** = **~3.6GB RAM**  
+- **For a 10-minute window (600M entries)** = **~36GB RAM**  
+
+✅ **Recommended RAM per Redis pod:** **32GB - 64GB** (depends on retention policy)
+
+---
+
+## **4️⃣ Scaling Strategy**
+### **Option 1: Single High-Performance Redis Pod**
+- **6 vCPUs, 64GB RAM**  
+- Multi-threading enabled (`io-threads 4-6`)  
+- **Handles 1M QPS but may need vertical scaling later**  
+
+### **Option 2: Sharded Redis Cluster**
+- **4 Redis pods**, each with **4 vCPUs, 32GB RAM**  
+- Each instance handles **250K QPS**  
+- **Horizontal scaling** possible  
+
+---
+
+## **5️⃣ Redis Pod Resource Recommendation**
+| **Component**       | **Single Redis Pod**  | **Sharded Setup (4 pods)** |
+|---------------------|----------------------|----------------------------|
+| **CPU**            | 6 vCPUs               | 4 vCPUs per pod            |
+| **RAM**            | 64GB                   | 32GB per pod               |
+| **QPS per Pod**    | 1M                     | 250K per pod               |
+| **Scaling**        | Vertical Scaling      | Horizontal Scaling         |
+
+---
+
+## **6️⃣ Summary**
+- **For 1M QPS**, **6 vCPUs & 64GB RAM per Redis pod** works.  
+- **Sharding (4 Redis pods with 4 vCPUs, 32GB RAM each) is more scalable.**  
+- **Use multi-threading in Redis (Redis 6+) for high performance.**  
+- **Monitor & Autoscale using Kubernetes HPA (Horizontal Pod Autoscaler).**  
+
