@@ -102,3 +102,114 @@ Service Discovery is an essential part of **modern backend architectures**, maki
 
 💡 **Want to integrate Service Discovery into your system? Start with Kubernetes or Consul today!** 🚀
 
+## **Client-Side Discovery vs. Server-Side Discovery**  
+Client-side and server-side discovery are **two different ways** for services to find and communicate with each other in a **microservices architecture**. The key difference is **who decides which instance to call**:  
+- **Client-side discovery** → The **client (caller service)** picks a service instance from a service registry and calls it directly.  
+- **Server-side discovery** → The **client asks a load balancer**, which picks an instance and forwards the request.  
+
+---
+
+# **🔍 1. Client-Side Service Discovery (Example: Netflix Eureka)**
+### **How It Works**  
+1️⃣ **Service Registration:**  
+   - Each microservice registers itself with a **service registry** (e.g., Eureka, Consul, Zookeeper).  
+   
+2️⃣ **Client Queries the Service Registry:**  
+   - When a service (e.g., `RecommendationService`) wants to call another (`MovieService`), it **asks Eureka** for available instances.  
+
+3️⃣ **Client Chooses an Instance and Calls Directly:**  
+   - The **client itself** selects a healthy `MovieService` instance using **load balancing** (e.g., round-robin, least connections).  
+   - It makes a **direct API call** to that instance (bypassing a load balancer).  
+
+### **Example (Netflix using Eureka)**
+- Netflix's microservices (e.g., `UserService`, `MovieService`) register themselves in **Eureka**.  
+- If `RecommendationService` wants to call `MovieService`, it queries Eureka for a list of instances and picks one **on its own**.  
+- No external **load balancer** is needed.
+
+### **Pros ✅**
+✔️ **Faster** – No extra network hop via a load balancer.  
+✔️ **Flexible Load Balancing** – Clients decide how to balance requests.  
+✔️ **Less reliance on external infrastructure.**  
+
+### **Cons ❌**
+❌ **Client Complexity** – Each service must handle discovery & load balancing.  
+❌ **Tight Coupling** – Clients must integrate with the service registry.  
+
+---
+
+# **🔍 2. Server-Side Service Discovery (Example: AWS ALB, Kubernetes)**
+### **How It Works**  
+1️⃣ **Service Registration:**  
+   - Services register with a **service registry** (same as client-side).  
+
+2️⃣ **Client Calls a Fixed Load Balancer Address:**  
+   - Instead of querying the registry, the client **calls a fixed URL** (e.g., `https://movies.netflix.com`).  
+   - The **load balancer (or API Gateway)** forwards the request.  
+
+3️⃣ **Load Balancer Selects an Instance & Routes Traffic:**  
+   - The **load balancer (e.g., AWS ALB, Nginx, Envoy, Istio)** picks a healthy `MovieService` instance and forwards the request.  
+   - The client **does not know which instance it was sent to**.  
+
+### **Example (AWS ALB + Kubernetes)**
+- Netflix could use **AWS ALB (Application Load Balancer)** in front of `MovieService`.  
+- The client always calls `https://movies.netflix.com`, and ALB picks a `MovieService` instance automatically.  
+- **In Kubernetes**, clients call a fixed **Service name**, and Kubernetes handles traffic routing via **Kube-Proxy & Service Mesh** (e.g., Istio, Linkerd).
+
+### **Pros ✅**
+✔️ **Simple Clients** – Clients don’t need to handle discovery or load balancing.  
+✔️ **Better Security** – Load balancers can enforce rate limiting, security policies.  
+✔️ **Scalability** – Load balancer distributes traffic efficiently.  
+
+### **Cons ❌**
+❌ **Extra Network Hop** – Requests pass through a load balancer.  
+❌ **More Expensive** – Load balancers cost more infrastructure-wise.  
+❌ **Centralized Load Balancing** – Less control over request routing.  
+
+---
+
+# **📌 Key Differences (Side-by-Side)**
+| Feature | Client-Side Discovery | Server-Side Discovery |
+|---------|----------------------|----------------------|
+| **Who picks the service instance?** | The client (microservice itself) | The server (Load Balancer or API Gateway) |
+| **Who queries the service registry?** | The client | The load balancer |
+| **Example Technologies** | Eureka, Consul, Zookeeper | AWS ALB, Nginx, Kubernetes, Istio |
+| **Network Overhead** | Lower (direct communication) | Higher (extra hop via LB) |
+| **Load Balancing** | Handled by client | Handled by Load Balancer |
+| **Best For** | Microservices with flexible discovery logic | Large-scale systems needing centralized control |
+
+---
+
+# **🎯 When to Use Which?**
+✔ **Use Client-Side Discovery if:**  
+- You want **direct service-to-service communication**.  
+- Your clients can handle service discovery and load balancing.  
+- You are using **Eureka, Consul, or other registries** without an API Gateway.  
+
+✔ **Use Server-Side Discovery if:**  
+- You want **simpler clients** (they only call a single fixed URL).  
+- You need **centralized load balancing** for better security, monitoring, or scalability.  
+- You are using **AWS Load Balancers, Kubernetes Service Mesh (Istio, Linkerd), or Nginx/Envoy**.  
+
+---
+
+# **🔎 Real-World Examples**
+**1️⃣ Client-Side Discovery (Netflix Eureka)**
+- Netflix's **microservices** use **Eureka** for client-side discovery.  
+- Each service queries Eureka and picks an instance directly.  
+
+**2️⃣ Server-Side Discovery (AWS ALB + Kubernetes)**
+- **Amazon, Google, and Netflix (some services)** use AWS ALB for routing.  
+- Clients call a **fixed API Gateway or Load Balancer**, which picks the best service instance.  
+- Kubernetes **automatically routes requests to healthy service pods**.
+
+---
+
+## **🚀 Final Takeaway**
+- **Client-Side Discovery** → The **client selects the service instance**, which gives more flexibility but adds complexity.  
+- **Server-Side Discovery** → The **load balancer picks the service instance**, simplifying clients but adding an extra network hop.  
+
+### **So, which one is better?**  
+- **If you need lightweight, decentralized service-to-service communication → Use client-side discovery.**  
+- **If you want centralized routing, security, and monitoring → Use server-side discovery.**  
+
+Would you like a deep dive into a specific technology like **Eureka, AWS ALB, or Kubernetes Service Mesh**? 🚀
