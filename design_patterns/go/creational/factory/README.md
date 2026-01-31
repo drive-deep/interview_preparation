@@ -1,13 +1,72 @@
 # Factory Pattern
 
 ## Intent
-Define an interface for creating objects, but let subclasses/functions decide which class to instantiate. Factory Method lets a class defer instantiation to subclasses.
+Define an interface for creating objects, but let subclasses/functions decide which class to instantiate.
 
-## Problem It Solves
-- Need to create objects without specifying exact concrete class
-- Want to decouple object creation from usage
-- Need flexibility to add new types without changing client code
-- Hide complex creation logic from clients
+---
+
+## 🎤 Interview Questions & Answers
+
+### Q1: What is the Factory Pattern?
+**A:** Factory Pattern is a creational design pattern that provides an interface for creating objects without specifying their concrete classes. Instead of using `new` directly, we delegate object creation to a factory function that returns objects based on input parameters.
+
+### Q2: Why do we use Factory Pattern?
+**A:** We use Factory Pattern when:
+- We don't know beforehand which concrete class we need
+- We want to **decouple** object creation from usage
+- We need to **centralize** creation logic in one place
+- We want to easily **add new types** without changing client code
+
+**Example:** A notification system that can send via Email, SMS, or Push. The client just calls `NotifierFactory("email")` without knowing how `EmailNotifier` is created.
+
+### Q3: What problem does Factory Pattern solve?
+**A:** It solves the problem of **tight coupling** between client code and concrete implementations.
+
+**Without Factory (Bad):**
+```go
+// Client is tightly coupled to EmailNotifier
+notifier := &EmailNotifier{Vendor: "gmail"}
+```
+
+**With Factory (Good):**
+```go
+// Client depends only on Notifier interface
+notifier, _ := NotifierFactory("email", "gmail")
+```
+
+### Q4: When should I NOT use Factory Pattern?
+**A:** Don't use it when:
+- Only one implementation exists
+- Creation logic is trivial (`&Struct{}` is enough)
+- You don't need polymorphism
+- It adds unnecessary complexity
+
+### Q5: Factory vs Abstract Factory - What's the difference?
+**A:** 
+| Factory | Abstract Factory |
+|---------|------------------|
+| Creates ONE product | Creates FAMILY of related products |
+| Single factory function | Factory interface with multiple implementations |
+| `NotifierFactory("email")` | `UIFactory.CreateButton()`, `UIFactory.CreateDialog()` |
+
+### Q6: How is Factory Pattern implemented in Go differently than Java?
+**A:**
+| Java | Go |
+|------|-----|
+| Abstract Factory class | Simple function |
+| Inheritance hierarchy | Interface + composition |
+| `new ConcreteProduct()` | `&ConcreteProduct{}` |
+| Factory Method pattern | Just return interface from function |
+
+Go doesn't need complex class hierarchies - a simple function returning an interface is enough.
+
+### Q7: Give a real-world example of Factory Pattern.
+**A:** 
+- **`database/sql`**: `sql.Open("mysql", connStr)` - factory creates different DB drivers
+- **`http`**: `http.NewRequest("GET", url, nil)` - creates different request types
+- **Payment gateways**: `PaymentFactory("stripe")` returns Stripe/PayPal/Razorpay processor
+
+---
 
 ## How It Works
 
@@ -23,27 +82,10 @@ Client Code                      Factory                         Products
     │  returns Notifier interface   │                                │
     │<─────────────────────────────│                                │
     │                               │                                │
-    │  notifier.Send("hello")       │                                │
-    │  (polymorphic call)           │                                │
+    │  notifier.Send("hello")       │     (polymorphic call)         │
 ```
 
-## Real-World Examples
-| Example | Factory Creates |
-|---------|-----------------|
-| Database drivers | `sql.Open("mysql", ...)` → MySQL, PostgreSQL, SQLite |
-| Notification services | Email, SMS, Push notifiers |
-| Payment processors | Stripe, PayPal, Razorpay handlers |
-| Loggers | File, Console, Remote loggers |
-| Serializers | JSON, XML, YAML encoders |
-
-## Go-Idiomatic Approach
-
-| Java/OOP Way | Go Way |
-|--------------|--------|
-| Abstract Factory class | Factory function returning interface |
-| Concrete factory subclasses | Switch/map in factory function |
-| new ConcreteProduct() | Return &ConcreteProduct{} |
-| Factory interface | Simple function (no interface needed) |
+---
 
 ## Structure
 
@@ -66,70 +108,29 @@ Client Code                      Factory                         Products
 └─────────────────────────────────────────────────┘
 ```
 
-## Key Components
+---
 
-| Component | Purpose |
-|-----------|---------|
-| Product interface | Common interface all products implement (`Notifier`) |
-| Concrete Products | Different implementations (`EmailNotifier`, `SmsNotifier`) |
-| Factory Function | Creates correct product based on input type |
+## Advantages & Disadvantages
 
-## Advantages
-- ✅ **Loose coupling** - Client depends on interface, not concrete types
-- ✅ **Single Responsibility** - Creation logic in one place
-- ✅ **Open/Closed Principle** - Add new types without modifying existing code
-- ✅ **Testability** - Easy to mock by providing different implementations
+| ✅ Advantages | ❌ Disadvantages |
+|--------------|-----------------|
+| Loose coupling | Can lead to many classes |
+| Single Responsibility | Factory can grow large |
+| Open/Closed Principle | Slight indirection overhead |
+| Easy to test/mock | |
 
-## Disadvantages
-- ❌ Can lead to many small classes/structs
-- ❌ Factory function can become large with many types (use map or registry)
+---
 
-## When to Use
-- ✅ Multiple implementations of same interface
-- ✅ Object creation logic is complex
-- ✅ Need to add new types without changing clients
-- ✅ Want to hide concrete types from clients
+## Real-World Examples
 
-## When NOT to Use
-- ❌ Only one implementation exists
-- ❌ Simple object creation (just use `&Struct{}`)
-- ❌ No need for polymorphism
+| Example | Factory Creates |
+|---------|-----------------|
+| `sql.Open("mysql", ...)` | MySQL, PostgreSQL, SQLite |
+| Notification services | Email, SMS, Push notifiers |
+| Payment processors | Stripe, PayPal, Razorpay |
+| Loggers | File, Console, Remote loggers |
 
-## Variations
-
-### Simple Factory (what we implemented)
-```go
-func NotifierFactory(type string) (Notifier, error)
-```
-
-### Factory with Registry (for many types)
-```go
-var registry = map[string]func() Notifier{
-    "email": func() Notifier { return &EmailNotifier{} },
-    "sms":   func() Notifier { return &SmsNotifier{} },
-}
-
-func NotifierFactory(type string) (Notifier, error) {
-    if factory, ok := registry[type]; ok {
-        return factory(), nil
-    }
-    return nil, fmt.Errorf("unknown type: %s", type)
-}
-```
-
-## Test Cases
-### Positive Tests
-1. Factory returns correct type for each valid input
-2. Returned notifier has correct vendor value
-3. Each notifier implements interface correctly
-4. Polymorphic behavior works
-
-### Negative Tests
-5. Factory returns error for unknown type
-6. Factory returns error for empty type
-7. Factory handles case sensitivity (EMAIL ≠ email)
-8. Factory rejects special characters
-9. Factory handles whitespace correctly
+---
 
 ## Files
 - `factory.go` - Implementation
