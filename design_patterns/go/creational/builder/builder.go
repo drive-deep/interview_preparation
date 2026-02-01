@@ -1,61 +1,65 @@
 package builder
 
-// TODO: Implement Builder pattern
-//
-// Practice Exercise: HTTP Server Builder
-//
-// Fields to configure:
-// - host (default: "localhost")
-// - port (default: 8080)
-// - tls (default: false)
-// - timeout (default: 30s)
-// - maxConnections (default: 100)
-//
-// ==================== APPROACH 1: Traditional Builder ====================
-//
-// type ServerBuilder struct {
-//     host string
-//     port int
-//     // ...
-// }
-//
-// func NewServerBuilder() *ServerBuilder {
-//     return &ServerBuilder{
-//         host: "localhost",
-//         port: 8080,
-//         // defaults...
-//     }
-// }
-//
-// func (b *ServerBuilder) WithHost(host string) *ServerBuilder {
-//     b.host = host
-//     return b  // return self for chaining
-// }
-//
-// func (b *ServerBuilder) Build() *Server {
-//     return &Server{host: b.host, port: b.port, ...}
-// }
-//
-// Usage:
-//   server := NewServerBuilder().WithHost("api.example.com").WithPort(443).Build()
-//
-// ==================== APPROACH 2: Functional Options (Go Idiom) ====================
-//
-// type Option func(*Server)
-//
-// func WithHost(host string) Option {
-//     return func(s *Server) {
-//         s.host = host
-//     }
-// }
-//
-// func NewServer(opts ...Option) *Server {
-//     s := &Server{host: "localhost", port: 8080}  // defaults
-//     for _, opt := range opts {
-//         opt(s)
-//     }
-//     return s
-// }
-//
-// Usage:
-//   server := NewServer(WithHost("api.example.com"), WithPort(443))
+
+import (
+	"time"
+	"fmt"
+)
+
+
+type Server struct {
+	host             string
+	port             int
+	tls              bool
+	timeout          time.Duration
+	maxConnections int
+}
+
+func NewServerBuilder() *Server {
+	return &Server{
+		host: "localhost",
+		port: 8080,
+		tls: false,
+		timeout: 30 * time.Second,
+		maxConnections: 100,
+	}
+}
+
+func (b *Server) WithHost(host string) *Server {
+	b.host = host
+	return b
+}
+
+func (b *Server) WithPort(port int) *Server {
+	b.port = port
+	return b
+}
+
+func (b *Server) WithTLS(tls bool) *Server {
+	b.tls = tls
+	return b
+}
+
+func (b *Server) WithTimeout(timeout time.Duration) *Server {
+	b.timeout = timeout
+	return b
+}
+
+func (b *Server) WithMaxConnections(maxConnections int) *Server {
+	b.maxConnections = maxConnections
+	return b
+}
+
+func (b *Server) Build() *Server {
+	return b
+}
+
+func (s *Server) Start() {
+	fmt.Printf("Starting server on %s:%d with TLS: %t, timeout: %s, max connections: %d\n", s.host, s.port, s.tls, s.timeout, s.maxConnections)
+}	
+
+func main() {
+	server := NewServerBuilder().WithHost("api.example.com").WithPort(443).WithTLS(true).WithTimeout(10*time.Second).WithMaxConnections(500).Build()
+	server.Start()
+}
+
